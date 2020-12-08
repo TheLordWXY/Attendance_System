@@ -1,5 +1,8 @@
 package com.example.AttendanceSystemServer.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,15 +27,17 @@ public class leave_record {
     @Column(
             name = "start_time"
     )
+    @DateTimeFormat (pattern = "yyyy-MM-dd")
     private Date start_time;
     @Column(
             name = "end_time"
     )
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date end_time;
     @Column(
-            name = "leaveman_id"
+            name = "leavemanid"
     )
-    private int leaveman_id;
+    private int leavemanid;
     @Column(
             name = "type"
     )
@@ -46,23 +51,55 @@ public class leave_record {
     )
     private String appendix;
     @Column(
-            name = "record_state"
+            name = "recordstate"
     )
-    private String record_state;
+    private String recordstate;
     @Column(
             name = "duration"
     )
     private int duration;
 
+    @Column(name = "receipt")
+    private String receipt;
+
+    public leave_record(){
+
+    }
+
     public leave_record(leave_apply la) {
+        la.setDuration();
         this.start_time = la.getStart_time();
         this.end_time = la.getEnd_time();
-        this.leaveman_id = la.getLeaveman_id();
+        this.leavemanid = la.getLeaveman_id();
         this.type = la.getType();
         this.reason = la.getReason();
         this.appendix = la.getAppendix();
         this.duration = la.getDuration();
-        this.record_state = "reviewing";
+        this.recordstate = "reviewing";
+    }
+
+    public String getReceipt() {
+        return receipt;
+    }
+
+    public void setReceipt(String receipt) {
+        this.receipt = receipt;
+    }
+
+    public int getLeavemanid() {
+        return leavemanid;
+    }
+
+    public void setLeavemanid(int leavemanid) {
+        this.leavemanid = leavemanid;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     public int getLeave_record_id() {
@@ -89,13 +126,6 @@ public class leave_record {
         this.end_time = end_time;
     }
 
-    public int getLeaveman_id() {
-        return this.leaveman_id;
-    }
-
-    public void setLeaveman_id(int leaveman_id) {
-        this.leaveman_id = leaveman_id;
-    }
 
     public String getType() {
         return this.type;
@@ -122,10 +152,10 @@ public class leave_record {
     }
 
     public String getRecord_state() {
-        return this.record_state;
+        return this.recordstate;
     }
 
     public void setRecord_state(String record_state) {
-        this.record_state = record_state;
+        this.recordstate = record_state;
     }
 }

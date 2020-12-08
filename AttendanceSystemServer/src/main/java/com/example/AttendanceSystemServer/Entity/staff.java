@@ -45,9 +45,9 @@ public class staff {
     )
     private String password;
     @Column(
-            name = "staff_rank"
+            name = "staffrank"
     )
-    private int staff_rank;
+    private int staffrank;
 
     public staff() {
     }
@@ -60,6 +60,8 @@ public class staff {
         this.age = age;
     }
 
+
+
     public String getPassword() {
         return this.password;
     }
@@ -69,11 +71,11 @@ public class staff {
     }
 
     public int getStaff_rank() {
-        return this.staff_rank;
+        return this.staffrank;
     }
 
     public void setStaff_rank(int rank) {
-        this.staff_rank = rank;
+        this.staffrank = rank;
     }
 
     public int getStaff_id() {

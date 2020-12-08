@@ -1,9 +1,14 @@
 package com.example.AttendanceSystemServer.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class leave_apply {
+    @DateTimeFormat (pattern = "yyyy-MM-dd")
     private Date start_time;
+    @DateTimeFormat (pattern = "yyyy-MM-dd")
     private Date end_time;
     private int leaveman_id;
     private String type;
