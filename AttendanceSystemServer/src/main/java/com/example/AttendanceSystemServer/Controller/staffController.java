@@ -83,5 +83,15 @@ public class staffController {
         return service.updateStaffinfo(staff);
     }
 
+    @RequestMapping("clockIn")
+    @ResponseBody
+    public JSONObject clockIn(@RequestParam("check_time") @DateTimeFormat(pattern = "yyyy-MM-dd")Date check_time,@RequestParam("check_place")String check_place){
+        return service.clockIn(check_time,check_place);
+    }
 
+    @RequestMapping("month_report")
+    @ResponseBody
+    public JSONObject getMonthReport(@RequestParam("month")int month,@RequestParam("staff_id")int staff_id){
+        return service.getMonthReport(month,staff_id);
+    }
 }

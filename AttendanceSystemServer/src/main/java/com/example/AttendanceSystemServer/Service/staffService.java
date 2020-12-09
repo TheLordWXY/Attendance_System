@@ -2,9 +2,7 @@ package com.example.AttendanceSystemServer.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.AttendanceSystemServer.Entity.*;
-import com.example.AttendanceSystemServer.Repository.annual_leaveRepository;
-import com.example.AttendanceSystemServer.Repository.leave_recordRepository;
-import com.example.AttendanceSystemServer.Repository.staffRepository;
+import com.example.AttendanceSystemServer.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +16,10 @@ public class staffService {
     private annual_leaveRepository annual_leaveRepository;
     @Autowired
     private leave_recordRepository leave_recordRepository;
+    @Autowired
+    private check_recordRepository check_recordRepository;
+    @Autowired
+    private compassionate_leaveRepository compassionate_leaveRepository;
 
     public staffService() {
     }
@@ -65,21 +67,36 @@ public class staffService {
 
     public JSONObject applyHoliday(leave_apply la) {
         JSONObject jsonObject = new JSONObject();
-        //la.setDuration();
+        la.setDuration();
         int staff_id = la.getLeaveman_id();
-        //staff s = (staff)this.staffRepository.findById(staff_id).get();
+        staff s = (staff)this.staffRepository.findById(staff_id).get();
         //annual_leave leaveman_now = new annual_leave(s);
         leave_record lr = new leave_record(la);
-        if (la.getDuration() <= ((annual_leave)this.annual_leaveRepository.findById(staff_id).get()).getDuration()) {
-            this.leave_recordRepository.save(lr);
-            //leaveman_now.setDuration(((annual_leave)this.annual_leaveRepository.findById(staff_id).get()).getDuration() - la.getDuration());
-            //this.annual_leaveRepository.save(leaveman_now);
-            jsonObject.put("code", 0);
-            jsonObject.put("msg", "apply successfully");
-        } else {
-            jsonObject.put("code", 1);
-            jsonObject.put("msg", "not enough");
+        String type = lr.getType();
+        switch (type){
+            case "annual":{
+                if (la.getDuration() <= ((annual_leave)this.annual_leaveRepository.findById(staff_id).get()).getDuration()) {
+                    this.leave_recordRepository.save(lr);
+                    //leaveman_now.setDuration(((annual_leave)this.annual_leaveRepository.findById(staff_id).get()).getDuration() - la.getDuration());
+                    //this.annual_leaveRepository.save(leaveman_now);
+                    jsonObject.put("code", 0);
+                    jsonObject.put("msg", "apply successfully");
+                } else {
+                    jsonObject.put("code", 1);
+                    jsonObject.put("msg", "not enough");
+                }
+            }
+//            case "compassionate":{
+//                leave_recordRepository.save(lr);
+//                compassionate_leave cl = new compassionate_leave(s);
+//
+//                compassionate_leaveRepository.save(cl);
+//                jsonObject.put("code", 0);
+//                jsonObject.put("msg", "apply successfully");
+//            }
         }
+
+
 
         return jsonObject;
     }
@@ -220,6 +237,57 @@ public class staffService {
         staffRepository.save(staff);
         jsonObject.put("code",0);
         jsonObject.put("msg","get successfully");
+        return jsonObject;
+    }
+
+    public JSONObject clockIn(Date check_time, String check_place) {
+        JSONObject jsonObject = new JSONObject();
+        check_record cr = new check_record();
+        cr.setChecktime(check_time);
+        cr.setCheckplace(check_place);
+        if(check_place.equals("天津市津南区北洋园校区")){
+            check_recordRepository.save(cr);
+            jsonObject.put("code",0);
+            jsonObject.put("msg","clockIn successfully");
+        }
+        else {
+            jsonObject.put("code",1);
+            jsonObject.put("msg","clockIn failed");
+        }
+        return jsonObject;
+    }
+
+
+    public JSONObject getMonthReport(int month, int staff_id) {
+        JSONObject jsonObject = new JSONObject();
+        List<check_record> all = check_recordRepository.findAllByCheckmanid(staff_id);
+        List<check_record> check_records = new ArrayList<>();
+        for (check_record cr:all) {
+            if((cr.getChecktime().getMonth()+1) == month){
+                check_records.add(cr);
+            }
+        }
+        int mySalary = staffRepository.findById(staff_id).get().getSalary();
+
+
+        if(month == 1|month == 3|month == 5|month == 7|month == 8|month == 10|month == 12){
+            mySalary -= 100 * (31 - check_records.size());
+        }
+        else if(month == 2){
+            mySalary -= 100 * (28 - check_records.size());
+        }
+        else {
+            mySalary -= 100 * (30 - check_records.size());
+        }
+
+
+        int compassionateDuration = 0;
+
+
+        jsonObject.put("code",0);
+        jsonObject.put("msg","get successfully");
+        jsonObject.put("check_records",check_records);
+        jsonObject.put("salary",mySalary);
         return jsonObject;
     }
 }

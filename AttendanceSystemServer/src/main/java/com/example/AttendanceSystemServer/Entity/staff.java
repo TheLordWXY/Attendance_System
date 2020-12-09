@@ -49,6 +49,9 @@ public class staff {
     )
     private int staffrank;
 
+    @Column(name = "salary")
+    private int salary;
+
     public staff() {
     }
 
@@ -60,7 +63,21 @@ public class staff {
         this.age = age;
     }
 
+    public int getStaffrank() {
+        return staffrank;
+    }
 
+    public void setStaffrank(int staffrank) {
+        this.staffrank = staffrank;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
 
     public String getPassword() {
         return this.password;

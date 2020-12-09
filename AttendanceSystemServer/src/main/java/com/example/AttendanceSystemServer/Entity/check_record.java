@@ -1,5 +1,7 @@
 package com.example.AttendanceSystemServer.Entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,31 +24,53 @@ public class check_record {
     )
     private int check_record_id;
     @Column(
-            name = "checkman_id"
+            name = "checkmanid"
     )
-    private int checkman_id;
+    private int checkmanid;
     @Column(
-            name = "check_time"
+            name = "checktime"
     )
-    private Date check_time;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date checktime;
+
+    @Column(name = "checkplace")
+    private String checkplace;
 
     public check_record() {
     }
 
+    public int getCheck_record_id() {
+        return check_record_id;
+    }
+
+    public void setCheck_record_id(int check_record_id) {
+        this.check_record_id = check_record_id;
+    }
+
+    public Date getChecktime() {
+        return checktime;
+    }
+
+    public void setChecktime(Date checktime) {
+        this.checktime = checktime;
+    }
+
+    public String getCheckplace() {
+        return checkplace;
+    }
+
+    public void setCheckplace(String checkplace) {
+        this.checkplace = checkplace;
+    }
+
     public int getCheckman_id() {
-        return this.checkman_id;
+        return this.checkmanid;
     }
 
     public void setCheckman_id(int checkman_id) {
-        this.checkman_id = checkman_id;
+        this.checkmanid = checkman_id;
     }
 
-    public Date getCheck_time() {
-        return this.check_time;
-    }
 
-    public void setCheck_time(Date check_time) {
-        this.check_time = check_time;
-    }
 }
 
