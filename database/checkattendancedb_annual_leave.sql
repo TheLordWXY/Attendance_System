@@ -37,7 +37,7 @@ CREATE TABLE `annual_leave` (
 
 LOCK TABLES `annual_leave` WRITE;
 /*!40000 ALTER TABLE `annual_leave` DISABLE KEYS */;
-INSERT INTO `annual_leave` VALUES (2,'annual',0,0),(1001,'annual',5,0),(2002,'annual',15,0),(2003,'annual',10,0);
+INSERT INTO `annual_leave` VALUES (2,'annual',0,0),(1001,'annual',5,0),(2002,'annual',15,0),(2003,'annual',10,0),(3003,'annual',10,0);
 /*!40000 ALTER TABLE `annual_leave` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-08 16:32:12
+-- Dump completed on 2020-12-09 13:30:03

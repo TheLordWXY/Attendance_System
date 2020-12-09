@@ -31,7 +31,7 @@ CREATE TABLE `staff` (
   `age` int DEFAULT NULL,
   `department` varchar(45) DEFAULT NULL,
   `password` varchar(45) DEFAULT NULL,
-  `staff_rank` int DEFAULT NULL,
+  `staffrank` int DEFAULT NULL,
   PRIMARY KEY (`staff_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -42,7 +42,7 @@ CREATE TABLE `staff` (
 
 LOCK TABLES `staff` WRITE;
 /*!40000 ALTER TABLE `staff` DISABLE KEYS */;
-INSERT INTO `staff` VALUES (2,'female','Candy',NULL,0,22,NULL,'123',1),(1001,'male','Bob',NULL,7,20,NULL,'123',1),(2002,'female','Alice',NULL,23,42,NULL,'123',2),(2003,'male','Eric',NULL,11,32,NULL,'123',2);
+INSERT INTO `staff` VALUES (2,'female','Candy',NULL,0,22,'Personnel','123',1),(1001,'male','Bob',NULL,7,20,'Finance','123',1),(2002,'female','Alice',NULL,23,42,'Personnel','123',2),(2003,'male','Eric',NULL,11,32,'Finance','123',2),(3003,'male','Bill',NULL,11,37,'Boss','123',3);
 /*!40000 ALTER TABLE `staff` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-08 16:32:13
+-- Dump completed on 2020-12-09 13:30:04

@@ -26,12 +26,13 @@ CREATE TABLE `leave_record` (
   `leave_record_id` int NOT NULL,
   `start_time` datetime DEFAULT NULL,
   `end_time` datetime DEFAULT NULL,
-  `leaveman_id` int DEFAULT NULL,
+  `leavemanid` int DEFAULT NULL,
   `type` varchar(45) DEFAULT NULL,
   `reason` varchar(45) DEFAULT NULL,
   `appendix` varchar(45) DEFAULT NULL,
-  `record_state` varchar(45) DEFAULT NULL,
+  `recordstate` varchar(45) DEFAULT NULL,
   `duration` int DEFAULT NULL,
+  `receipt` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`leave_record_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -42,7 +43,7 @@ CREATE TABLE `leave_record` (
 
 LOCK TABLES `leave_record` WRITE;
 /*!40000 ALTER TABLE `leave_record` DISABLE KEYS */;
-INSERT INTO `leave_record` VALUES (3,'1970-01-01 00:00:00','1970-01-01 00:00:00',2002,'annual',NULL,NULL,'reviewing',0);
+INSERT INTO `leave_record` VALUES (3,'1970-02-01 00:00:00','1970-02-02 00:00:00',1001,'annual',NULL,NULL,'reviewing',0,'www'),(4,'1970-01-02 00:00:00','1970-01-03 00:00:00',1001,'annual',NULL,NULL,'disagree',0,'www');
 /*!40000 ALTER TABLE `leave_record` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-08 16:32:13
+-- Dump completed on 2020-12-09 13:30:04
