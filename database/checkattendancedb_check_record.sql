@@ -24,8 +24,9 @@ DROP TABLE IF EXISTS `check_record`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `check_record` (
   `check_record_id` int NOT NULL,
-  `checkman_id` int DEFAULT NULL,
-  `check_time` datetime DEFAULT NULL,
+  `checkmanid` int DEFAULT NULL,
+  `checktime` datetime DEFAULT NULL,
+  `checkplace` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`check_record_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -36,6 +37,7 @@ CREATE TABLE `check_record` (
 
 LOCK TABLES `check_record` WRITE;
 /*!40000 ALTER TABLE `check_record` DISABLE KEYS */;
+INSERT INTO `check_record` VALUES (5,1001,'2020-01-21 16:00:00','天津市津南区北洋园校区'),(6,1001,'2020-01-22 00:00:00','天津市津南区北洋园校区'),(7,0,'2020-01-23 00:00:00','天津市津南区北洋园校区'),(8,1001,'2020-02-23 00:00:00','天津市津南区北洋园校区');
 /*!40000 ALTER TABLE `check_record` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-09 13:30:03
+-- Dump completed on 2020-12-09 15:33:49

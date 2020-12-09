@@ -16,28 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `month_report`
+-- Table structure for table `compassionate_leave`
 --
 
-DROP TABLE IF EXISTS `month_report`;
+DROP TABLE IF EXISTS `compassionate_leave`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `month_report` (
-  `month_report_id` int NOT NULL,
+CREATE TABLE `compassionate_leave` (
+  `staff_id` int NOT NULL,
+  `type` varchar(45) DEFAULT NULL,
+  `duration` int DEFAULT NULL,
+  `wages` int DEFAULT NULL,
   `month` int DEFAULT NULL,
-  `staff_id` int DEFAULT NULL,
-  `month_wages` int NOT NULL,
-  PRIMARY KEY (`month_report_id`)
+  PRIMARY KEY (`staff_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `month_report`
+-- Dumping data for table `compassionate_leave`
 --
 
-LOCK TABLES `month_report` WRITE;
-/*!40000 ALTER TABLE `month_report` DISABLE KEYS */;
-/*!40000 ALTER TABLE `month_report` ENABLE KEYS */;
+LOCK TABLES `compassionate_leave` WRITE;
+/*!40000 ALTER TABLE `compassionate_leave` DISABLE KEYS */;
+/*!40000 ALTER TABLE `compassionate_leave` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-09 15:33:48
+-- Dump completed on 2020-12-09 15:33:49
