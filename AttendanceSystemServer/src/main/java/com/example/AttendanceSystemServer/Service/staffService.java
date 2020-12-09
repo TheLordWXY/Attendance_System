@@ -20,6 +20,9 @@ public class staffService {
     private check_recordRepository check_recordRepository;
     @Autowired
     private compassionate_leaveRepository compassionate_leaveRepository;
+    @Autowired
+    private sick_leaveRepository sick_leaveRepository;
+
 
     public staffService() {
     }
@@ -30,6 +33,11 @@ public class staffService {
                 annual_leave al = new annual_leave(staffRepository.findById(leaveman_id).get());
                 al.setDuration(al.getDuration() - duration);
                 annual_leaveRepository.save(al);
+            }
+            case "sick":{
+                sick_leave sl = new sick_leave(staffRepository.findById(leaveman_id).get());
+                sl.setDuration(sl.getDuration() - duration);
+                sick_leaveRepository.save(sl);
             }
         }
     }
@@ -55,6 +63,8 @@ public class staffService {
             this.staffRepository.save(s);
             annual_leave al = new annual_leave(s);
             this.annual_leaveRepository.save(al);
+            compassionate_leave cl = new compassionate_leave(s);
+            compassionate_leaveRepository.save(cl);
             jsonObject.put("code", 0);
             jsonObject.put("msg", "sign successfully");
         } else {
@@ -75,10 +85,8 @@ public class staffService {
         String type = lr.getType();
         switch (type){
             case "annual":{
-                if (la.getDuration() <= ((annual_leave)this.annual_leaveRepository.findById(staff_id).get()).getDuration()) {
+                if (la.getDuration() <= (this.annual_leaveRepository.findById(staff_id).get()).getDuration()) {
                     this.leave_recordRepository.save(lr);
-                    //leaveman_now.setDuration(((annual_leave)this.annual_leaveRepository.findById(staff_id).get()).getDuration() - la.getDuration());
-                    //this.annual_leaveRepository.save(leaveman_now);
                     jsonObject.put("code", 0);
                     jsonObject.put("msg", "apply successfully");
                 } else {
@@ -86,20 +94,33 @@ public class staffService {
                     jsonObject.put("msg", "not enough");
                 }
             }
-//            case "compassionate":{
-//                leave_recordRepository.save(lr);
-//                compassionate_leave cl = new compassionate_leave(s);
-//
-//                compassionate_leaveRepository.save(cl);
-//                jsonObject.put("code", 0);
-//                jsonObject.put("msg", "apply successfully");
-//            }
+            case "compassionate":{
+                leave_recordRepository.save(lr);
+                compassionate_leave cl = new compassionate_leave(s);
+                int comMonth = lr.getStart_time().getMonth() + 1;
+                cl.setMonth(comMonth);
+                cl.setDuration(compassionate_leaveRepository.findById(staff_id).get().getDuration());
+                compassionate_leaveRepository.save(cl);
+                jsonObject.put("code", 0);
+                jsonObject.put("msg", "apply successfully");
+            }
+            case "sick":{
+                if (la.getDuration() <= (this.sick_leaveRepository.findById(staff_id).get()).getDuration()) {
+                    this.leave_recordRepository.save(lr);
+                    jsonObject.put("code", 0);
+                    jsonObject.put("msg", "apply successfully");
+                } else {
+                    jsonObject.put("code", 1);
+                    jsonObject.put("msg", "not enough");
+                }
+            }
         }
-
-
-
         return jsonObject;
     }
+
+
+
+
 
     public JSONObject getSelfHoliday(int staff_id) {
         JSONObject jsonObject = new JSONObject();
@@ -141,6 +162,8 @@ public class staffService {
         return jsonObject;
     }
 
+
+
     //这是审批者也就是经理的id，是需要自己审批的请假申请
     public JSONObject approveApply(approve_receipt ar) {
         JSONObject jsonObject = new JSONObject();
@@ -156,6 +179,13 @@ public class staffService {
                     lr.setRecord_state("agree");
                     jsonObject.put("code",0);
                     jsonObject.put("msg","agree");
+                    leave_record leave_record= leave_recordRepository.findById(ar.getLeave_record_id()).get();
+                    int comDuration = 0;
+                    comDuration+=leave_record.getDuration();
+                    compassionate_leave compassionate_leave = new compassionate_leave(leaveman);
+                    compassionate_leave.setMonth(compassionate_leaveRepository.findById(leaveman_id).get().getMonth());
+                    compassionate_leave.setDuration(comDuration + compassionate_leaveRepository.findById(leaveman_id).get().getDuration());
+                    compassionate_leaveRepository.save(compassionate_leave);
                 }
                 else{
                     lr.setRecord_state("need more approve");
@@ -174,10 +204,16 @@ public class staffService {
         }
         else if((state.equals("reviewing") & leaveman.getStaff_rank() == 2) | state.equals("need more approve")){
             if(ar.isIs_agree()){
+                reduceLeave(type,leaveman_id,duration);
                 lr.setRecord_state("agree");
                 jsonObject.put("code",0);
                 jsonObject.put("msg","agree");
-                reduceLeave(type,leaveman_id,duration);
+                leave_record leave_record= leave_recordRepository.findById(ar.getLeave_record_id()).get();
+                int comDuration = 0;
+                comDuration+=leave_record.getDuration();
+                compassionate_leave compassionate_leave = new compassionate_leave(leaveman);
+                compassionate_leave.setDuration(comDuration + compassionate_leaveRepository.findById(leaveman_id).get().getDuration());
+                compassionate_leaveRepository.save(compassionate_leave);
             }
             else{
                 lr.setRecord_state("disagree");
@@ -282,12 +318,17 @@ public class staffService {
 
 
         int compassionateDuration = 0;
+        compassionateDuration += compassionate_leaveRepository.findById(staff_id).get().getDuration();
+        mySalary += compassionateDuration * compassionate_leaveRepository.findById(staff_id).get().getWages();
 
+        List<leave_record> leave_records = leave_recordRepository.findAllByLeavemanid(staff_id);
 
         jsonObject.put("code",0);
         jsonObject.put("msg","get successfully");
         jsonObject.put("check_records",check_records);
+        jsonObject.put("leave_records",leave_records);
         jsonObject.put("salary",mySalary);
+
         return jsonObject;
     }
 }

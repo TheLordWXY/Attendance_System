@@ -43,7 +43,7 @@ CREATE TABLE `leave_record` (
 
 LOCK TABLES `leave_record` WRITE;
 /*!40000 ALTER TABLE `leave_record` DISABLE KEYS */;
-INSERT INTO `leave_record` VALUES (3,'1970-02-01 00:00:00','1970-02-02 00:00:00',1001,'annual',NULL,NULL,'reviewing',1,'www'),(4,'1970-01-02 00:00:00','1970-01-03 00:00:00',1001,'annual',NULL,NULL,'disagree',1,'www'),(9,'2020-01-04 08:00:00','2020-01-06 08:00:00',1001,'compassionate',NULL,NULL,'reviewing',2,NULL);
+INSERT INTO `leave_record` VALUES (3,'1970-02-01 00:00:00','1970-02-02 00:00:00',1001,'annual',NULL,NULL,'reviewing',1,'www'),(4,'1970-01-02 00:00:00','1970-01-03 00:00:00',1001,'annual',NULL,NULL,'disagree',1,'www'),(9,'2020-01-04 08:00:00','2020-01-06 08:00:00',1001,'compassionate',NULL,NULL,'reviewing',2,NULL),(10,'2020-01-07 08:00:00','2020-01-08 08:00:00',1001,'compassionate',NULL,NULL,'agree',1,NULL),(11,'2020-01-11 08:00:00','2020-01-15 08:00:00',1001,'compassionate',NULL,NULL,'agree',4,NULL),(12,'2020-01-17 08:00:00','2020-01-18 08:00:00',1001,'compassionate',NULL,NULL,'agree',1,NULL),(13,'2020-01-17 08:00:00','2020-01-18 08:00:00',1001,'compassionate',NULL,NULL,'reviewing',1,NULL),(14,'2020-01-20 08:00:00','2020-01-23 08:00:00',1001,'compassionate',NULL,NULL,'reviewing',3,NULL),(15,'2020-01-24 08:00:00','2020-01-25 08:00:00',1001,'compassionate',NULL,NULL,'agree',1,NULL),(16,'2020-01-25 08:00:00','2020-01-27 08:00:00',1001,'compassionate',NULL,NULL,'agree',2,NULL),(17,'2020-01-25 08:00:00','2020-01-27 08:00:00',1001,'sick',NULL,NULL,'agree',2,NULL);
 /*!40000 ALTER TABLE `leave_record` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-09 15:33:49
+-- Dump completed on 2020-12-09 20:11:47

@@ -16,30 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `compassionate_leave`
+-- Table structure for table `sick_leave`
 --
 
-DROP TABLE IF EXISTS `compassionate_leave`;
+DROP TABLE IF EXISTS `sick_leave`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `compassionate_leave` (
+CREATE TABLE `sick_leave` (
   `staff_id` int NOT NULL,
-  `type` varchar(45) DEFAULT NULL,
   `duration` int DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
   `wages` int DEFAULT NULL,
-  `month` int DEFAULT NULL,
   PRIMARY KEY (`staff_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `compassionate_leave`
+-- Dumping data for table `sick_leave`
 --
 
-LOCK TABLES `compassionate_leave` WRITE;
-/*!40000 ALTER TABLE `compassionate_leave` DISABLE KEYS */;
-INSERT INTO `compassionate_leave` VALUES (1001,'compassionate',11,-100,1);
-/*!40000 ALTER TABLE `compassionate_leave` ENABLE KEYS */;
+LOCK TABLES `sick_leave` WRITE;
+/*!40000 ALTER TABLE `sick_leave` DISABLE KEYS */;
+INSERT INTO `sick_leave` VALUES (1001,3,'annual',0);
+/*!40000 ALTER TABLE `sick_leave` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
